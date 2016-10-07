@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_dynamics"
+        icon="@drawable/ic_dynamics"
+        title="动态"
+        barColorWhenSelected="#FF9800"/>
+    <tab
+        id="@+id/tab_activity"
+        icon="@drawable/ic_activity"
+        title="活动"
+        barColorWhenSelected="#66CCFF"/>
+    <tab
+        id="@+id/tab_records"
+        icon="@drawable/ic_records"
+        title="记录"
+        barColorWhenSelected="#9C27B0"/>
+    <tab
+        id="@+id/tab_mine"
+        icon="@drawable/ic_mine"
+        title="我的"
+        barColorWhenSelected="#FF5722"/>
+</tabs>

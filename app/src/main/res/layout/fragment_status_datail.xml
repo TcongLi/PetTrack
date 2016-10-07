@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.edu.bigc.pettrack.fragment.StatusDatailFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/person_item"></include>
+        <android.support.v4.widget.NestedScrollView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/status_detail_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/large_text" />
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</FrameLayout>

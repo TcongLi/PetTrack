@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.youth.banner.Banner
+            android:transitionName="activities_card_to_detail"
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="152dp"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activities_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="76dp"
+        android:src="@drawable/ic_brush_black_24dp"/>
+
+</FrameLayout>
+
+
+
+
