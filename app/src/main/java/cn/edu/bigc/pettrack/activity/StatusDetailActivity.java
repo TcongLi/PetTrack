@@ -72,7 +72,7 @@ public class StatusDetailActivity extends AppCompatActivity {
         if (url == null || url.isEmpty()) {
             Glide.clear(imgStatus);
         } else {
-            Glide.with(this).load(url).crossFade().fitCenter().into(imgStatus);
+            Glide.with(this).load(url).crossFade().centerCrop().into(imgStatus);
         }
 
         fab.setOnClickListener((view)->{

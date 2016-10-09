@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/status_detail_img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/activity_03"

@@ -70,7 +70,7 @@ public class ActivitiesDetailActivity extends AppCompatActivity {
         if(imgURL==null||imgURL.isEmpty()){
             Glide.clear(img);
         }else{
-            Glide.with(this).load(imgURL).crossFade().fitCenter().into(img);
+            Glide.with(this).load(imgURL).crossFade().into(img);
         }
 
         pagerAdapter=new PagerAdapter(getSupportFragmentManager());

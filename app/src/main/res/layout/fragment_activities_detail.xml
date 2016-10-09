@@ -97,6 +97,7 @@
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_details_black_24dp" />
                 <TextView
+                    android:lineSpacingExtra="8dp"
                     android:id="@+id/txt_activities_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

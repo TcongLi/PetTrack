@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:lineSpacingExtra="8dp"
                 android:id="@+id/status_detail_msg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

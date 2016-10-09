@@ -111,12 +111,12 @@ public class ActivitiesFragment extends Fragment {
 
                 banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
                         .setImages(bannerImgURLs)
-                        .setImageLoader((c, p, i) -> Glide.with(c).load(p).into(i))
+                        .setImageLoader((c, p, i) -> Glide.with(c).load(p).crossFade().centerCrop().into(i))
                         .setBannerAnimation(Transformer.DepthPage)
                         .setBannerTitles(bannerTitles)
                         .start();
                 banner.setOnBannerClickListener((pos) -> {
-                    EventBus.getDefault().postSticky(new ActivitiesEvent(bannerActivities.get(pos-2),bannerActivities.get(pos-2).getAVUser("user")));
+                    EventBus.getDefault().postSticky(new ActivitiesEvent(bannerActivities.get(pos-1),bannerActivities.get(pos-1).getAVUser("user")));
                     startActivity(new Intent(getActivity(), ActivitiesDetailActivity.class),
                             ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),banner,"activities_card_to_detail").toBundle());
                 });

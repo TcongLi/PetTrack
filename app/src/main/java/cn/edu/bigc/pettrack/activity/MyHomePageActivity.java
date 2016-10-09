@@ -3,6 +3,7 @@ package cn.edu.bigc.pettrack.activity;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +36,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.callback.AVFriendshipCallback;
 import com.bumptech.glide.Glide;
 
@@ -57,18 +60,20 @@ import cn.edu.bigc.pettrack.adapter.StatusAdapter;
 
 public class MyHomePageActivity extends AppCompatActivity {
     CollapsingToolbarLayout ct;
-    Context mContext=this;
-    Activity activity=this;
+    Context mContext = this;
+    Activity activity = this;
     AVUser avUser;
     TextView txtFollower;
     TextView txtFollowee;
     ImageView imgAvater;
+    ImageView imgBg;
     Button btnFollow;
     RecyclerView recyclerView;
     StatusAdapter adapter;
     List<AVObject> statusList;
     boolean isMine;
     boolean isMyFollowee;
+    boolean setAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +91,9 @@ public class MyHomePageActivity extends AppCompatActivity {
         txtFollowee = (TextView) findViewById(R.id.num_followee);
         txtFollower = (TextView) findViewById(R.id.num_follower);
         imgAvater = (ImageView) findViewById(R.id.img_avater);
+        imgBg = (ImageView) findViewById(R.id.home_bg);
         btnFollow = (Button) findViewById(R.id.btn_follow);
-        recyclerView= (RecyclerView) findViewById(R.id.recyclerview_homepage);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_homepage);
         //CAUTION! The location of register of eventbus,or you'll get a NULLPOINTER exception.
         EventBus.getDefault().register(this);
         //
@@ -97,17 +103,18 @@ public class MyHomePageActivity extends AppCompatActivity {
 
         setNum();
         setAavtar();
+        setHomeBg();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        StatusUtils.queryStatus(avUser,new FindCallback<AVObject>() {
+        StatusUtils.queryStatus(avUser, new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (list == null || list.size() == 0) {
                     return;
                 }
                 statusList = list;
-                adapter=new StatusAdapter(statusList,mContext,activity);
+                adapter = new StatusAdapter(statusList, mContext, activity);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -122,15 +129,15 @@ public class MyHomePageActivity extends AppCompatActivity {
             EventBus.getDefault().postSticky(new UserEvent(avUser));
             startActivity(new Intent(MyHomePageActivity.this, PersonListActivity.class));
         });
-        if (avUser==AVUser.getCurrentUser()) {
-            imgAvater.setOnClickListener((v) -> {
-                Intent intent = new Intent();
-                /* 开启Pictures画面Type设定为image */
-                intent.setType("image/*");
-                /* 使用Intent.ACTION_GET_CONTENT这个Action */
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                /* 取得相片后返回本画面 */
-                startActivityForResult(intent, 1);
+        if (avUser == AVUser.getCurrentUser()) {
+            imgAvater.setOnClickListener((v) ->{
+                showDialog("要更换头像吗");
+                setAvatar=true;
+            });
+
+            imgBg.setOnClickListener((v)->{
+                showDialog("要更换照片墙吗");
+                setAvatar=false;
             });
             btnFollow.setVisibility(View.GONE);
         }
@@ -177,11 +184,21 @@ public class MyHomePageActivity extends AppCompatActivity {
         AVFile file = avUser.getAVFile("avatar");
         if (file != null) {
             Glide.with(this).load(file.getUrl()).crossFade().into(imgAvater);
-        }else{
+        } else {
             Glide.with(this).load(R.drawable.icon).crossFade().into(imgAvater);
         }
     }
-
+    private void setHomeBg(){
+        if (avUser == null) {
+            return;
+        }
+        AVFile file = avUser.getAVFile("homeBg");
+        if (file != null) {
+            Glide.with(this).load(file.getUrl()).crossFade().centerCrop().into(imgBg);
+        } else {
+            Glide.clear(imgBg);
+        }
+    }
     private void setNum() {
         if (avUser == null) {
             return;
@@ -200,6 +217,23 @@ public class MyHomePageActivity extends AppCompatActivity {
         });
     }
 
+    public void showDialog(String title) {
+        new AlertDialog.Builder(MyHomePageActivity.this)
+                .setTitle(title)
+                .setPositiveButton("是", (dialogInterface, i) -> {
+                    Intent intent = new Intent();
+                        /* 开启Pictures画面Type设定为image */
+                    intent.setType("image/*");
+                        /* 使用Intent.ACTION_GET_CONTENT这个Action */
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                        /* 取得相片后返回本画面 */
+                    startActivityForResult(intent, 1);
+                })
+                .setNegativeButton("否", null)
+                .create()
+                .show();
+    }
+
     @Subscribe(sticky = true)
     public void onEvent(UserEvent ue) {
         avUser = ue.getUser();
@@ -215,12 +249,27 @@ public class MyHomePageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             Uri uri = data.getData();
-            Log.i("uri", uri.getLastPathSegment());
             try {
                 AVFile file = new AVFile(uri.getLastPathSegment() + "", UserUtils.readBytes(uri, getContentResolver()));
-                avUser.put("avatar", file);
-                avUser.saveInBackground();
-                setAavtar();
+                if(setAvatar){
+                    avUser.put("avatar", file);
+                    avUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            setAavtar();
+                        }
+                    });
+
+                }else {
+                    avUser.put("homeBg", file);
+                    avUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            setHomeBg();
+                        }
+                    });
+
+                }
             } catch (FileNotFoundException e) {
                 Log.e("Exception", e.getMessage(), e);
             } catch (IOException e) {

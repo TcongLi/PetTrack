@@ -53,7 +53,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         if(url==null){
             Glide.clear(img);
         }else {
-            Glide.with(this).load(url).crossFade().fitCenter().into(img);
+            Glide.with(this).load(url).crossFade().centerCrop().into(img);
         }
 
         msg.setText(record.getString("msg"));
