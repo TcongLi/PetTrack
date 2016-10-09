@@ -1,7 +1,6 @@
 # PetTrack: Best Practice in Android  
 
-Author:TcongLi  
-[download apk](https://github.com/TcongLi/PetTrack/releases)
+[Download Apk](https://github.com/TcongLi/PetTrack/releases)
 
 # BUG:   
 - [x] 图片缩放问题
@@ -14,8 +13,8 @@ Author:TcongLi
 - [x] 用户系统
     - [x] 注册页
         - [x] 邮箱
-            -[x] 昵称
-            -[x] 邮箱地址
+            - [x] 昵称
+            - [x] 邮箱地址
         - [ ] 手机
         - [ ] 第三方
     - [x] 登录页
