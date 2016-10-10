@@ -1,19 +1,11 @@
 package cn.edu.bigc.pettrack.activity;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,25 +21,18 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVFriendship;
-import com.avos.avoscloud.AVFriendshipQuery;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.avos.avoscloud.SaveCallback;
-import com.avos.avoscloud.callback.AVFriendshipCallback;
 import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.bigc.pettrack.Event.PersonTypeEvent;
@@ -55,7 +40,6 @@ import cn.edu.bigc.pettrack.Event.UserEvent;
 import cn.edu.bigc.pettrack.R;
 import cn.edu.bigc.pettrack.Utils.StatusUtils;
 import cn.edu.bigc.pettrack.Utils.UserUtils;
-import cn.edu.bigc.pettrack.adapter.PersonlistAdapter;
 import cn.edu.bigc.pettrack.adapter.StatusAdapter;
 
 public class MyHomePageActivity extends AppCompatActivity {
@@ -65,7 +49,7 @@ public class MyHomePageActivity extends AppCompatActivity {
     AVUser avUser;
     TextView txtFollower;
     TextView txtFollowee;
-    ImageView imgAvater;
+    ImageView imgAvatar;
     ImageView imgBg;
     Button btnFollow;
     RecyclerView recyclerView;
@@ -90,7 +74,7 @@ public class MyHomePageActivity extends AppCompatActivity {
         ct = (CollapsingToolbarLayout) findViewById(R.id.my_homepage_detail_ct);
         txtFollowee = (TextView) findViewById(R.id.num_followee);
         txtFollower = (TextView) findViewById(R.id.num_follower);
-        imgAvater = (ImageView) findViewById(R.id.img_avater);
+        imgAvatar = (ImageView) findViewById(R.id.img_avater);
         imgBg = (ImageView) findViewById(R.id.home_bg);
         btnFollow = (Button) findViewById(R.id.btn_follow);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_homepage);
@@ -129,8 +113,8 @@ public class MyHomePageActivity extends AppCompatActivity {
             EventBus.getDefault().postSticky(new UserEvent(avUser));
             startActivity(new Intent(MyHomePageActivity.this, PersonListActivity.class));
         });
-        if (avUser == AVUser.getCurrentUser()) {
-            imgAvater.setOnClickListener((v) ->{
+        if (avUser.equals(AVUser.getCurrentUser())) {
+            imgAvatar.setOnClickListener((v) ->{
                 showDialog("Òª¸ü»»Í·ÏñÂð");
                 setAvatar=true;
             });
@@ -183,9 +167,9 @@ public class MyHomePageActivity extends AppCompatActivity {
         }
         AVFile file = avUser.getAVFile("avatar");
         if (file != null) {
-            Glide.with(this).load(file.getUrl()).crossFade().into(imgAvater);
+            Glide.with(this).load(file.getUrl()).crossFade().into(imgAvatar);
         } else {
-            Glide.with(this).load(R.drawable.icon).crossFade().into(imgAvater);
+            Glide.with(this).load(R.drawable.icon).crossFade().into(imgAvatar);
         }
     }
     private void setHomeBg(){

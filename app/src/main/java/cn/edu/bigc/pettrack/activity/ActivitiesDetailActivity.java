@@ -58,60 +58,62 @@ public class ActivitiesDetailActivity extends AppCompatActivity {
 
         EventBus.getDefault().register(this);
 
-        tab= (TabLayout) findViewById(R.id.activities_detail_tab);
-        vp= (ViewPager) findViewById(R.id.activities_detail_vp);
-        img= (ImageView) findViewById(R.id.activities_detail_img);
-        btnSubscribe= (Button) findViewById(R.id.btn_subscribe);
-        ct= (CollapsingToolbarLayout) findViewById(R.id.activities_detail_ct);
+        tab = (TabLayout) findViewById(R.id.activities_detail_tab);
+        vp = (ViewPager) findViewById(R.id.activities_detail_vp);
+        img = (ImageView) findViewById(R.id.activities_detail_img);
+        btnSubscribe = (Button) findViewById(R.id.btn_subscribe);
+        ct = (CollapsingToolbarLayout) findViewById(R.id.activities_detail_ct);
 
+        btnSubscribe.setVisibility(View.GONE);
         ct.setTitle(" ");
 
-        String imgURL=act.getString("imgURL");
-        if(imgURL==null||imgURL.isEmpty()){
+        String imgURL = act.getString("imgURL");
+        if (imgURL == null || imgURL.isEmpty()) {
             Glide.clear(img);
-        }else{
+        } else {
             Glide.with(this).load(imgURL).crossFade().into(img);
         }
 
-        pagerAdapter=new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFrag(new ActivitiesDetailFragment(),"详情");
-        pagerAdapter.addFrag(new ActivitiesPeopleFragment(),"已报名");
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFrag(new ActivitiesDetailFragment(), "详情");
+        pagerAdapter.addFrag(new ActivitiesPeopleFragment(), "已报名");
         vp.setAdapter(pagerAdapter);
         tab.setupWithViewPager(vp);
 
         queryIsSubscribed();
-        if(isSubscribed){
-            btnSubscribe.setText("取消报名");
-        }
 
-
-        btnSubscribe.setOnClickListener((v)->{
+        btnSubscribe.setOnClickListener((v) -> {
             queryIsSubscribed();
-            if(!isSubscribed){
+            if (!isSubscribed) {
                 ActivitiesUtils.subscribe(act);
-                Snackbar.make(v,"报名成功",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(v, "报名成功", Snackbar.LENGTH_SHORT).show();
                 btnSubscribe.setText("取消报名");
-            }else {
+            } else {
                 btnSubscribe.setText("取消报名");
             }
         });
-
     }
 
-    public void queryIsSubscribed(){
+    public void queryIsSubscribed() {
         ActivitiesUtils.queryPeople(act, new FindCallback() {
             @Override
             public void done(List list, AVException e) {
-                if(list==null||list.size()==0){
+                if (list == null || list.size() == 0) {
                     return;
                 }
-                for(Object o:list){
-                    if(o.equals(AVUser.getCurrentUser())){
-                        isSubscribed=true;
+                List<AVObject> userList = list;
+                for (AVObject o : userList) {
+                    if (o.getAVUser("user").equals(AVUser.getCurrentUser())) {
+                        isSubscribed = true;
                     }
                 }
+                if (isSubscribed) {
+                    btnSubscribe.setText("取消报名");
+                } else {
+                    btnSubscribe.setText("我要报名");
+                }
+                btnSubscribe.setVisibility(View.VISIBLE);
             }
-
         });
     }
 
@@ -145,14 +147,14 @@ public class ActivitiesDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(sticky = true)
-    public void onEvent(ActivitiesEvent e){
-        act=e.getActivites();
-        user=e.getUser();
+    public void onEvent(ActivitiesEvent e) {
+        act = e.getActivites();
+        user = e.getUser();
     }
 }

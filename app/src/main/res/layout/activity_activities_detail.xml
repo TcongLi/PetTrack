@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ButtonPrimaryDark"
         android:layout_gravity="bottom"
-        android:text="我要报名"/>
+        />
 
 
 </android.support.design.widget.CoordinatorLayout>

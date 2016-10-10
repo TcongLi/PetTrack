@@ -66,12 +66,11 @@ public class PersonlistAdapter extends RecyclerView.Adapter<PersonlistAdapter.Th
         AVUser user = users.get(position);
 
         holder.username.setText(user.getUsername());
-        Log.i("userlist_adapter", "done: " + user.getObjectId());
         AVFile file=user.getAVFile("avatar");
         if(file==null){
             Glide.clear(holder.img);
         }else {
-            Glide.with(context).load(user.getAVFile("avatar").getUrl()).into(holder.img);
+            Glide.with(context).load(file.getUrl()).into(holder.img);
         }
         holder.itemView.setOnClickListener((v) -> {
             EventBus.getDefault().postSticky(new UserEvent(user));
