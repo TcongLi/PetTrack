@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
 
         holder.MMM__dd.setText(new SimpleDateFormat("MMM  dd", Locale.ENGLISH).format(record.getCreatedAt()));
         holder.yyyy.setText(new SimpleDateFormat("yyyy").format(record.getCreatedAt()));
-        holder.itemView.setOnClickListener((v)->{
+        holder.card.setOnClickListener((v)->{
             EventBus.getDefault().postSticky(new RecordEvent(record));
             mContext.startActivity(new Intent(activity, RecordDetailActivity.class),
                     ActivityOptionsCompat.makeSceneTransitionAnimation(activity,holder.imgRecord,"record_to_detail").toBundle());
@@ -81,6 +82,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TimelineView mTimelineView;
         ImageView imgRecord;
+        CardView card;
         TextView msgRecord;
         TextView MMM__dd;
         TextView yyyy;
@@ -93,6 +95,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
             imgRecord = (ImageView) itemView.findViewById(R.id.img_record_cord);
             MMM__dd = (TextView) itemView.findViewById(R.id.record_MMM__dd);
             yyyy = (TextView) itemView.findViewById(R.id.record_yyyy);
+            card= (CardView) itemView.findViewById(R.id.record_cardview);
         }
     }
 }
