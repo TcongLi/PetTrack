@@ -1,12 +1,15 @@
 package cn.edu.bigc.pettrack.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.bumptech.glide.Glide;
 
 import cn.edu.bigc.pettrack.PtApplication;
 import cn.edu.bigc.pettrack.R;
@@ -23,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText psw;
     TextView signUpLink;
     Button login;
+    ImageView imgLaunch;
+    ImageView icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +37,26 @@ public class LoginActivity extends AppCompatActivity {
         AVAnalytics.trackAppOpened(getIntent());
         findView();
         setListener();
-        if(AVUser.getCurrentUser()!=null){
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            finish();
-        }
+        Glide.with(this).load(R.drawable.ic_launch).crossFade().into(imgLaunch);
+        acnt.setVisibility(View.GONE);
+        psw.setVisibility(View.GONE);
+        signUpLink.setVisibility(View.GONE);
+        login.setVisibility(View.GONE);
+        icon.setVisibility(View.GONE);
+        new Handler().postDelayed(()->{
+            if(AVUser.getCurrentUser()!=null){
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                finish();
+            }else{
+                imgLaunch.setVisibility(View.GONE);
+                acnt.setVisibility(View.VISIBLE);
+                psw.setVisibility(View.VISIBLE);
+                signUpLink.setVisibility(View.VISIBLE);
+                login.setVisibility(View.VISIBLE);
+                icon.setVisibility(View.VISIBLE);
+            }
+        },2000);
+
     }
 
     private void findView() {
@@ -42,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         psw= (EditText) findViewById(R.id.intput_password);
         signUpLink= (TextView) findViewById(R.id.link_signup);
         login= (Button) findViewById(R.id.btn_login);
+        imgLaunch= (ImageView) findViewById(R.id.img_launch);
+        icon= (ImageView) findViewById(R.id.img_icon);
     }
 
     private void setListener() {
