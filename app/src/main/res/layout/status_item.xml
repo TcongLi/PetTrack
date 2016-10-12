@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dynamics_list_layout"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+
     app:cardMaxElevation="6dp"
     app:cardElevation="@dimen/cardview_default_elevation"
     app:cardCornerRadius="@dimen/cardview_default_radius"

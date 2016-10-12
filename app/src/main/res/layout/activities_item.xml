@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     app:cardCornerRadius="@dimen/cardview_default_radius"
@@ -65,10 +67,11 @@
 
             <ImageView
                 android:id="@+id/bookmark"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="4dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_bookmark_border_black_24dp" />
+                android:src="@drawable/vector_drawable_icon_people" />
 
             <TextView
                 android:id="@+id/activities_people_num"
