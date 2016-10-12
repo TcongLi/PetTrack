@@ -52,9 +52,10 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         AVUser user = (AVUser) status.get("user");
         String url = status.getString("imgURL");
         if (!(url == null || url.equals(""))) {
-            Glide.with(mContext).load(url).crossFade().fitCenter().into(holder.imgStatus);
+            Glide.with(mContext).load(url).crossFade().centerCrop().into(holder.imgStatus);
         } else {
             // make sure Glide doesn't load anything into this view until told otherwise
+            holder.imgStatus.setVisibility(View.GONE);
             Glide.clear(holder.imgStatus);
             // remove the placeholder (optional); read comments below
             //holder.imgStatus.setVisibility(View.GONE);

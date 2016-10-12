@@ -32,13 +32,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+
+            >
             <EditText
                 android:id="@+id/intput_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="用户名/邮箱"/>
+                android:hint="用户名/邮箱"
+                android:textColorHighlight="@color/colorPrimary"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -68,7 +71,7 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登陆"
+        android:text="登录"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center_horizontal"
         android:theme="@style/ButtonPrimary"

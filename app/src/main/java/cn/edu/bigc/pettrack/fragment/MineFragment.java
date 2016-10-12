@@ -99,7 +99,7 @@ public class MineFragment extends Fragment {
         if (file != null) {
             Glide.with(getActivity()).load(file.getUrl()).crossFade().into(imgMyAvatar);
         }
-        btnMine.setText(AVUser.getCurrentUser().getUsername()+"\nÎÒµÄÖ÷Ò³");
+        btnMine.setText(AVUser.getCurrentUser().getUsername()+"");
     }
 
 }

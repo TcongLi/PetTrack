@@ -16,6 +16,7 @@
             android:src="@drawable/activity_0"
             android:scaleType="centerCrop"/>
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:id="@+id/recyclerview_records"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

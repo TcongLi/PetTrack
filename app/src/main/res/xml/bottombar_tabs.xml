@@ -9,15 +9,15 @@
         id="@+id/tab_activity"
         icon="@drawable/ic_activity"
         title="活动"
-        barColorWhenSelected="#66CCFF"/>
+        barColorWhenSelected="#FF9800"/>
     <tab
         id="@+id/tab_records"
         icon="@drawable/ic_records"
         title="记录"
-        barColorWhenSelected="#9C27B0"/>
+        barColorWhenSelected="#FF9800"/>
     <tab
         id="@+id/tab_mine"
         icon="@drawable/ic_mine"
         title="我的"
-        barColorWhenSelected="#FF5722"/>
+        barColorWhenSelected="#FF9800"/>
 </tabs>

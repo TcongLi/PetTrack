@@ -6,6 +6,7 @@
     tools:context="cn.edu.bigc.pettrack.fragment.MineFragment">
 
     <LinearLayout
+        android:background="#F8F8F8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -35,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="我的主页"
+                android:textColor="#757575"
                 android:textAllCaps="false"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
@@ -68,6 +70,7 @@
                 android:text="我的活动"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
+                android:textColor="#757575"
                 android:padding="0sp"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 />
@@ -99,6 +102,7 @@
                 android:text="我的关注"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
+                android:textColor="#757575"
                 android:padding="0sp"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 />
@@ -127,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="我的粉丝"
+                android:textColor="#757575"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:padding="0sp"
@@ -146,7 +151,7 @@
                 android:id="@+id/img_find_user"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_search_black_24dp"
+                android:src="@drawable/icon_search"
                 app:civ_border_width="0dp"
                 app:civ_border_color="#FF000000"
                 android:layout_margin="16dp"
@@ -157,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="查找用户"
+                android:textColor="#757575"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:padding="0sp"
@@ -187,10 +193,11 @@
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="退出登陆"
+                android:text="退出登录"
                 android:gravity="center_vertical|center_horizontal"
                 android:textSize="16sp"
                 android:padding="0sp"
+                android:textColor="#757575"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 />
 

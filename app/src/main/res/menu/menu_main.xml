@@ -12,5 +12,5 @@
         android:orderInCategory="100"
         android:title="search"
         app:showAsAction="always"
-        android:icon="@drawable/vector_drawable_ic_search_white___px"/>
+        android:icon="@drawable/ic_search_black_24dp"/>
 </menu>

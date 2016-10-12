@@ -35,6 +35,9 @@
                 android:layout_height="wrap_content"
                 android:text="一些关于活动的简短的介绍"
                 android:layout_gravity="bottom"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textSize="18sp"
                 android:background="#aaffffff"/>
 
         </FrameLayout>
@@ -47,8 +50,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/activities_list_avater"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="4dp"
                 android:scaleType="centerCrop"
@@ -62,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:paddingLeft="8dp"
+                android:paddingLeft="4dp"
                 android:text="username" />
 
             <ImageView
@@ -79,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="8dp"
+                android:textColor="#BDBDBD"
                 android:text="1024" />
 
         </LinearLayout>
